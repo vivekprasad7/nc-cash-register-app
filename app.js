@@ -1,5 +1,6 @@
 const cashGiven = document.querySelector("#cash-given");
 const billAmount = document.querySelector("#bill-amount");
+
 const checkBtn = document.querySelector("#check-btn")
 const errorMsg = document.querySelector("#error-msg");
 
@@ -7,26 +8,15 @@ const noOfNotes = document.querySelectorAll(".total-notes");
 
 const totalNotes = [2000, 500, 100, 20, 10, 5, 1];
 
-function cashToBeReturned(returnAmount){
-
-    for( let i =0; i < totalNotes.length; i++){
-        const numberOfNotes = Math.trunc( returnAmount / totalNotes[i]);
-        
-        returnAmount = returnAmount % totalNotes[i];
-
-        noOfNotes[i].innerText = numberOfNotes;
-
-    }
-
-}
 
 checkBtn.addEventListener('click', function validateBillAndCashAmount(){
     hidemessage();
     if (billAmount.value > 0){
 
-        if( cashGiven.value >= billAmount.value) {
+        if( parseInt(cashGiven.value) >= parseInt(billAmount.value)) {
 
             const returnAmount = cashGiven.value - billAmount.value;
+            console.log(returnAmount);
 
             cashToBeReturned(returnAmount);
 
@@ -39,9 +29,23 @@ checkBtn.addEventListener('click', function validateBillAndCashAmount(){
     }
 });
 
+function cashToBeReturned(returnAmount){
+
+    for( let i =0; i < totalNotes.length; i++){
+        const numberOfNotes = Math.trunc( returnAmount / totalNotes[i]);
+        
+        returnAmount = returnAmount % totalNotes[i];
+
+        noOfNotes[i].innerText = numberOfNotes;
+        console.log(numberOfNotes);
+
+    }
+
+}
+
 
 function hidemessage(){
-    checkBtn.style.display = "none";
+    errorMsg.style.display = "none";
 }
 
 function showMessage(msg){
